@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content%}
+<div class="card mx-auto p-3" style="max-width: 30rem;">
+  <img src="{% static '/images/laptop.png' %}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">The estimated price</h5>
+    <p class="card-text">The estimated price of this computer is calculated based on the property values you entered.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong>Ram : </strong>{{ Ram }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <strong>Poids :</strong> {{ Poids }} Kg</li>
+      <li class="list-group-item"><strong>Touchscreen :</strong> {{ Touchscreen }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+        <strong>Pixels par pouce : </strong>{{ Pixels_par_pouce }}</li>
+        <li class="list-group-item"><strong>HDD : </strong>{{ HDD }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <strong>SDD : </strong>{{ SDD }}</li>
+  </ul>
+  <div class="card-body">
+    
+    <p  style="text-align: center;"><strong>Price =  </strong>{{ prcie }} DH</p> 
+    
+  </div>
+</div></br></br>
+
+{% endblock %}

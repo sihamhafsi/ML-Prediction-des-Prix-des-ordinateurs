@@ -1,0 +1,149 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content%}
+<h1 class="pt-3" style="text-align: center;">Gradient Stochastique</h1>
+
+<div class="container pl--3">
+    <h3 class="pt-3">Le Gradient Stochastique, qu’est-ce-que c’est ?</h3>
+    <p>La descente de gradient stochastique (SGD) est une façon d’optimiser 
+        les calculs de la descente </br>de gradient pour une fonction d’erreur 
+        associée à une grande série de données.</br> Au lieu de calculer un gradient
+         (compliqué) et un nouveau point pour l’ensemble des données,</br> on calcule
+          un gradient (simple) et un nouveau point par donnée, il faut répéter ce
+           processus pour chaque donnée.</p>
+    <p>Revenons à l’objectif visé par la régression linéaire :</br> 
+        On considère des données (Xi,yi), i=1,....,N où Xi ∈ Rl 
+        et yi ∈ R. . Ces données proviennent d’observations ou d’expérimentations.</p>
+        <p>Il s’agit de trouver une fonction F : Rl -> R qui modélise au mieux 
+            ces données, c’est-à-dire telle que : </br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>F(Xi) ≃ yi</strong></p>
+    <p>Pour l’entrée Xi, la valeur yi est la sortie attendue, alors que F(Xi) est
+                 la sortie produite par notre modèle.</br>
+                Pour mesurer la pertinence de la fonction F, on introduit la fonction 
+                d’erreur totale qui mesure l’écart entre la sortie attendue et la sortie produite :</p>
+                
+    <div style="display: flex; justify-content: center;">
+        <img src="{% static '/images/formule1_stochastique.png' %}" alt="" style="width: 50%; height: auto; margin: 0 auto;">
+    </div></br>
+    <p>Cette erreur totale est une somme d’erreurs locales :</p>
+    <div style="display: flex; justify-content: center;">
+        <img src="{% static '/images/formule2_stochastique.png' %}" alt="" style="width: 50%; height: auto; margin: 0 auto;">
+    </div></br>   
+
+    <p>Le but du problème est de déterminer la fonction F qui minimise l’erreur E.</br>
+         Par exemple, dans le cas de la régression linéaire, il fallait trouver
+          les paramètres a et b pour définir 
+        F(x) = ax + b, ou bien,</br> pour deux variables, les paramètres a, b, c pour définir 
+        F(x, y) = ax + b y + c.</p>
+    <p>Considérons une fonction erreur E : Rn → R qui dépend de n paramètres a1, . . . , an
+            (qui définissent l’expression de la fonction F).</p>
+    <p>Descente de gradient classique. Pour minimiser l’erreur et déterminer 
+        les meilleurs paramètres, on peut appliquer</br> la méthode du gradient classique.
+        On part d’un point P0 = (a1, . . . , an) ∈ Rn, puis on applique la formule de récurrence :</p>
+        
+     <div style="display: flex; justify-content: center;">
+            <img src="{% static '/images/formule3_stochastique.png' %}" alt="" style="width: 30%; height: auto; margin: 0 auto;">
+    </div></br>
+    <p>Pour appliquer cette formule, il faut calculer des gradients grad E(Pk), or</p>
+    <div style="display: flex; justify-content: center;">
+        <img src="{% static '/images/formule4_stochastique.png' %}" alt="" style="width: 20%; height: auto; margin: 0 auto;">
+    </div></br>
+            
+                
+    <p>Il faut donc calculer une somme de N termes à chaque itération, ce qui pose des problèmes 
+        d’efficacité pour de grandes valeurs de N.  </p>
+    <p>Pour diminuer la quantité de calculs, l’idée est de considérer à chaque itération 
+        un seul gradient Ei à la place de E. C’est-à-dire :</p>
+        <div style="display: flex; justify-content: center;">
+            <img src="{% static '/images/formule5_stochastique.png' %}" alt="" style="width: 30%; height: auto; margin: 0 auto;">
+    </div></br>
+    <p>Pour une seule erreur Ei(correspondant à la donnée numéro i). 
+        L’itération suivante se basera sur l’erreur Ei+1.</br>
+        Dans la méthode de gradient classique, on calcule à chaque itération
+         un « gros » gradient (associé à la totalité des N données)</br> qui nous
+          rapproche d’un grand pas vers le minimum.Ici on calcule N « petits » 
+          gradients qui nous rapprochent du minimum.</p>
+       
+
+    <div style="display: flex; justify-content: center;">
+            <img src="{% static '/images/formule6_stochastique.png' %}" alt="" style="width: 50%; height: auto; margin: 0 auto;">
+    </div></br>
+
+    <p>Voici les premières itérations de cet algorithme : </p>
+    <p>
+        <ol>
+            <li>On part d’un point P0</li></br>
+            <li>On calcule P1 = P0 − δgrad E1(P0). C’est la formule du gradient, 
+                mais seulement pour l’erreur locale E1 (juste à partir de 
+                la première donnée (X1, y1)).</li></br>
+            <li>	On calcule P2 = P1 − δgrad E2(P1). C’est la formule 
+                du gradient, mais seulement pour l’erreur locale E2.</li></br>
+                <li>On itère encore et encore.</li></br>
+                <li>On calcule Pn = Pn-1 − δgrad En (Pn-1). C’est la formule du gradient,
+                     mais seulement pour l’erreur locale En . À ce stade de l’algorithme,
+                     nous avons tenu compte de toutes les données.</li></br>
+            <li>On calcule Pn+1 = Pn − δgrad E1(Pn ). On recommence pour Pn et l’erreur locale E1.</li></br>
+            <li>Etc. On s’arrête au bout d’un nombre d’étapes fixé à l’avance 
+                ou lorsque l’on est suffisamment proche du minimum.</li></br>
+          </ol>     
+    </p>
+    <p>Terminons par des remarques plus techniques. Tout d’abord, 
+        la formule précise de la descente de gradient stochastique est :</p>
+    <div style="display: flex; justify-content: center;">
+            <img src="{% static '/images/formule7_stochastique.png' %}" alt="" style="width: 30%; height: auto; margin: 0 auto;">
+    </div>
+    <div style="display: flex; justify-content: center;">
+        où k%N est « k modulo N ».
+</div></br>
+<p>La descente de gradient stochastique est une méthode qui peut être plus efficace :</p>
+<p>
+    <ul>
+        <li>Tout d’abord elle n’utilise qu’une donnée à la fois et évite ainsi les 
+            problèmes de mémoire de la descente classique pour laquelle il faut manipuler
+             toutes les données à chaque itération.</li>
+        <li>Toujours dans le cas où l’on a beaucoup de données, la descente de gradient 
+            stochastique peut converger en deux ou trois passages sur l’ensemble des données,
+             alors que la descente classique nécessite toujours plusieurs itérations.</li>
+        <li>Avec la méthode stochastique, on calcule des gradients en des points qui
+             sont plus proches du minimum. Attention cependant, certains petits pas peuvent
+              aller dans la mauvaise direction.</li>
+        <li>Le caractère aléatoire de ces petits pas est parfois un avantage, par exemple pour s’échapper d’un point-selle.</li>
+      </ul>
+</p>
+<h3 class="pt-3">Algorithme de SGD : </h3>
+<p>La descente de gradient stochastique est une simplification drastique de GD qui surmonte 
+    certaines de ses difficultés. Chaque itération de SGD calcule le gradient sur la base 
+    d'une partition choisie au hasard de l'ensemble de données qui a été mélangé, au lieu 
+    d'utiliser la partie entière des observations . Cette modification de GD permet 
+    de réduire significativement le temps de calcul . Néanmoins, cette approche peut conduire 
+    à des résultats plus bruyants que la GD, car elle itère une observation à la fois.</p>
+    <p>La formule de Stochastic Gradient Descent qui met à jour le paramètre de poids w est :</p>
+    <div style="display: flex; justify-content: center;">
+        <img src="{% static '/images/formule8_stochastique.png' %}" alt="" style="width: 30%; height: auto; margin: 0 auto;">
+</div>
+<div style="display: flex; justify-content: center;">
+    <img src="{% static '/images/formule9_stochastique.png' %}" alt="" style="width: 50%; height: auto; margin: 0 auto;">
+</div>
+<p>Dans l'image ci-dessous, nous montrons les mises à jour successives de θ : </p>
+<div style="display: flex; justify-content: center;">
+    <img src="{% static '/images/formule10_stochastique.png' %}" alt="" style="width: 50%; height: auto; margin: 0 auto;">
+</div>
+<p>La descente de gradient stochastique, en revanche, s'éloigne souvent de &theta;
+    ! Cependant, comme il effectue des mises à jour plus souvent,
+     il converge souvent plus rapidement que la descente de gradient</p>
+<div style="display: flex; justify-content: center;">
+        <img src="{% static '/images/formule11_stochastique.png' %}" alt="" style="width: 50%; height: auto; margin: 0 auto;">
+</div>
+    
+</div></br></br>
+
+{% endblock %}

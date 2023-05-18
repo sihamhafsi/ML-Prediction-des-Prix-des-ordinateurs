@@ -1,0 +1,130 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content%}
+<h1 class="pt-3" style="text-align: center;">Gradient Descent</h1>
+<div class="container pl--3">
+<h3 class="pt-3">La Descente de Gradient, qu’est-ce-que c’est ?</h3>
+<p>La Descente de Gradient est un algorithme d’optimisation qui permet de trouver 
+le minimum</br> de n’importe quelle fonction convexe en convergeant progressivement vers celui-ci.</p>
+
+<div style="display: inline-block;">
+  <div class="bg-primary text-white p-3 rounded" style="width: 50%; opacity: 0.9;">
+    <p style="color: black;"><strong><em>Note :</em></strong> Une fonction convexe est une fonction dont l’allure ressemble à celle 
+        d’une belle vallée avec au centre un minimum global. A l’inverse, 
+        une fonction non-convexe est une fonction qui présente plusieurs minimums locaux et 
+        l’algorithme de descente de gradient ne doit pas être utilisé sur ces fonctions, 
+        au risque de se bloquer au premier minima rencontré.</p>
+  </div>
+  <div style="display: flex; justify-content: center;">
+    <img src="{% static '/images/fonction_convexe.png' %}" alt="" style="display: block; margin: auto;">
+  </div>
+  <h3 class="pt-3">Pourquoi la Descente de Gradient est si</br> importante en Machine Learning ?</h3>
+  <p>En Machine Learning, on va utiliser l’algorithme de la Descente de Gradient dans les problèmes</br> 
+    d’apprentissage supervisé pour minimiser la fonction coût, qui justement est une fonction 
+    convexe</br>  (par exemple l‘erreur quadratique moyenne).</p>
+    <p>C’est grâce à cet algorithme que la machine apprend, c’est-à-dire trouve le meilleur modèle.
+    </br> En effet, rappelez-vous que minimiser la fonction coût revient à trouver 
+    les paramètres a, b, c, etc.</br>  qui donnent les plus petites erreurs entre notre modèle et 
+    les points y du Dataset.</br>  Une fois la fonction coût minimisée, c’est le Jackpot ! À nous 
+    les programmes de reconnaissance vocale,</br>  de vision par ordinateur, et les applications 
+    pour prédire le cours de la bourse !</p>
+</div>
+    <div style="display: flex; justify-content: center;">
+    <img src="{% static '/images/cost.png' %}" alt="" style="display: block; margin: auto;">
+  </div>
+  <p>Pour vous expliquer son fonctionnement, je vais commencer par vous donner une analogie 
+    que tout le monde peut comprendre, après quoi je rentrerai à fond dans les maths.</p>
+
+ <h3 class="pt-3">Perdu en montagne, comment retrouver son chemin ?</h3>
+ <p>Imaginez que vous soyez perdu en pleine montagne. Votre but est de rejoindre un refuge 
+    situé au point le plus</br>  bas de la vallée dans laquelle vous vous situé. Le problème, 
+    c’est que vous n’avez pas pris de carte avec vous et </br> vous ignorez donc complètement 
+    les coordonnées de ce refuge. Vous devez vous débrouiller tout seul…</p>
+
+<p>Ne vous en faites pas, car voici une stratégie en 2 étapes qui va vous permettre de vous en sortir !</p>
+<p>
+    <ol>
+        <li>Depuis votre position actuelle, vous cherchez tout autour de vous la direction de là 
+            où la pente descend le plus fort.</li></br>
+        <li>Une fois que vous avez trouvé cette direction, vous la suivez sur une certaine distance 
+            (disons que vous marchez 300 mètres) puis vous répétez l’opération de l’étape 1.</li>
+      </ol>
+      
+</p>
+
+<p>En répétant ainsi les étapes 1 et 2 en boucle, vous êtes sûr de converger vers le minimum 
+    de la vallée. Eh bien </br>cette stratégie n’est ni plus ni moins que l’algorithme de 
+    la Descente de Gradient !<p/>
+
+    <div style="display: flex; justify-content: center;">
+        <img src="{% static '/images/montagne.png' %}" alt="" style="display: block; margin: auto;">
+      </div>
+<h3 class="pt-3">Descente de Gradient : De la Montagne au </br> Machine Learning</h3>
+
+<p>En machine Learning, la vallée dans laquelle nous nous situons est en fait la Fonction Coût J.
+     On peut répéter </br>en boucle les deux étapes vues précédemment pour en trouver le minimum !</p>
+
+     <div style="text-align: left;">
+        <img src="{% static '/images/montagne_math.png' %}" alt="" style="display: block; margin: auto;">
+      </div>
+      <h3 class="pt-3">Étape 1 : Calcul de la dérivée de la Fonction Coût</h3>   
+      <p>Nous partons d’un point initial aléatoire (comme si nous étions perdus en montagne) 
+        puis nous mesurons la</br> valeur de la pente en ce point. Et comment mesure-t-on une pente
+         en mathématique ? En calculant la dérivée</br> de la fonction !</p>   
+
+    <div class="bg-primary text-white p-3 rounded" style="width: 50%; opacity: 0.9;">
+            <p style="color: black;"><strong><em>Note :</em></strong> Gradient et dérivée 
+                peuvent être perçus comme étant la même chose. En fait le gradient est la
+                 généralisation vectorielle de la dérivée.</br> Mais vraiment, c’est la même chose.</p>
+    </div>
+
+    <h3 class="pt-3">Étape 2 : Mise à jour des paramètres du modèle</h3> 
+    <p>On progresse ensuite d’une certaine distance <strong> &alpha; </strong> dans la direction 
+        de la pente qui descend, mais pas 300 mètres </br>cette fois-ci ! On appelle 
+        cette distance Learning Rate, que l’on pourrait traduire par vitesse d’apprentissage.</p>
+
+    <p>Cette opération a pour résultat de modifier la valeur des paramètres de notre modèle
+         (nos coordonnées dans la</br> vallée changent quand on se déplace).</p>
+         <h3 class="pt-3">Descente de Gradient : Un algorithme itératif</h3> 
+
+    <p>En répétant ces deux étapes en boucle, l’algorithme de Gradient Descent est donc un 
+        algorithme itératif. Pour</br> l’illustrer sur un graphique, je vais prendre
+         l’exemple de la fonction coût J(a, b) que l’on a développé pour une </br> régression linéaire. 
+         L’algorithme permet de trouver la valeur idéale pour les paramètres a et b.</p>
+
+         <div style="text-align: left;">
+            <img src="{% static '/images/iteratif.png' %}" alt="" style="display: block; margin: auto;">
+          </div>
+
+          <p>En résumé, voici les liens entre l’analogie de la montagne et le Machine Learning :</p>
+          <div style="text-align: left;">
+            <img src="{% static '/images/analogie.png' %}" alt="" style="display: block; margin: auto;">
+          </div>
+
+          <h3 class="pt-3">Comment implémenter l’algorithme de la Descente</br> de Gradient ?</h3> 
+          <p>Pour implémenter cet algorithme, c’est très simple ! il suffit d’écrire
+             la ligne suivante et Magie le paramètre<strong> &alpha;</strong></br> convergera vers le minimum
+             de J(a, b). On fera la même chose pour le paramètre b !</p>
+             <div style="text-align: left;">
+                <img src="{% static '/images/formule1.png' %}" alt="" style="display: block; margin: auto;">
+              </div>
+
+              <p>En fait, ça n’a rien de magique. Je vais vous expliquer comment une simple ligne nous permet
+                 d’obtenir la</br> descente de gradient observée sur le graphique précédent.</p>
+                <p>Lorsque l’algorithme commence au tour i=0, nous pouvons calculer
+                     la position a_1 en appliquant la formule :</p>
+
+            
+            <div style="text-align: left;">
+                        <img src="{% static '/images/formule2.png' %}" alt="" style="display: block; margin: auto;">
+            </div>
+
+            <div style="text-align: left;">
+                <img src="{% static '/images/learning_rate_signe.png' %}" alt="" style="display: block; margin: auto;">
+             </div>
+
+
+</div></br></br>
+{% endblock %}

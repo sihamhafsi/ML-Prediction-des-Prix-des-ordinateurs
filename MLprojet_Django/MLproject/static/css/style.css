@@ -1,0 +1,11 @@
+.bg-black {
+    background-color: black;
+ }
+ .custom-class {
+    margin-top: -30px;
+    margin-left: 40px;
+  }
+  .custom-class {
+    transform: translateX(130px);
+  }
+  

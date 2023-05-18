@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content%}
+
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="text-center mb-4">Formulaire de prédiction</h2>
+        <form method="post" class="form-control">
+          {% csrf_token %}
+           {{ form.Ram.label_tag }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ form.Ram }}</br></br>
+            {{ form.Poids.label_tag }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           {{ form.Poids }}</br></br>
+           {{ form.Touchscreen.label_tag }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ form.Touchscreen }}</br></br>
+            {{ form.Pixels_par_pouce.label_tag }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           {{ form.Pixels_par_pouce }}</br></br>
+           {{ form.HDD.label_tag }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ form.HDD }}</br></br>
+            {{ form.SDD.label_tag }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             {{ form.SDD }}</br></br>
+             {{ form.algo.label_tag }}
+             {{ form.algo }}</br></br>
+          <button type="submit" class="btn btn-primary">Prédire</button>
+        </form>
+      </div>
+    </div>
+  </div></br></br></br>
+{% endblock %}
